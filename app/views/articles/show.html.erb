@@ -3,6 +3,8 @@
 
 <p><Strong>Title: </Strong><%=@article.title%></p>
 <p><Strong>Description: </Strong><%=@article.description%></p>
+<p><Strong>User: </Strong><%=@article.user.username if @article.user %></p>
+
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Delete', article_path(@article), data: { "turbo-method": :delete , "turbo-confirm": "Are you sure?"} %> |
