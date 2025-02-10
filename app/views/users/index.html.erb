@@ -1,0 +1,51 @@
+<br/>
+<br/>
+<%= link_to "Logout!", logout_path, data: { turbo_method: :delete } %>
+<br/>
+<br/>
+
+<%= link_to "Bloggers", users_path %>
+<h1>Alpha Bloggers</h1>
+
+<p>
+  <%= link_to 'Create New Article', new_article_path %></td>
+</p>
+
+<div class="flickr_pagination">
+    <%= will_paginate @users, :container => false %>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Profile</th>
+            <th>Article Count</th>
+            <th>User</th>
+            <th colspan="3">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @users.each do |user| %>
+            <tr>
+                <td><%= link_to gravatar_for(user, size: 150), user %></td>
+                <td><%= pluralize(user.articles.count, "article") %></td>
+                <td><%= link_to user.username, user %></td>
+                <td><%= link_to 'View Profile', user %></td>
+                <% if logged_in? %>
+                  <% if user == current_user %>
+                    <td><%= link_to 'Edit Profile', edit_user_path(user) %></td>
+                  <% end %>
+                  <% if current_user.admin? || (user == current_user) %>
+                    <td><%= link_to "Delete profile", user_path(user), data: { "turbo-method": :delete , "turbo-confirm": "Are you sure?"} %></td>
+                   <% end %>  
+                <% end %>  
+                <td><small>Joined <%= time_ago_in_words(user.created_at) %>ago</small></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>     
+
+<div class="flickr_pagination">
+    <%= will_paginate @users, :container => false %>
+</div>
+   

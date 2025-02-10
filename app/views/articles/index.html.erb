@@ -1,7 +1,16 @@
 <h1>Articles Listing Page</h1>
+<% if logged_in? %>
+    <p>
+      <%= link_to 'Create New Article', new_article_path %></td>
+    </p>
+ <% end %>   
+
+<div class="flickr_pagination">
+    <%= will_paginate @articles, :container => false %>
+</div>
 
 <%= render 'article' %>
 
-<p>
-  <%= link_to 'Create New Article', new_article_path %></td>
-</p>
+<div class="flickr_pagination">
+    <%= will_paginate @articles, :container => false %>
+</div>
